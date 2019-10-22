@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "make active file",
+            "command": "make -C ${fileDirname} ${fileBasenameNoExtension}.out",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "make everything",
+            "command": "make -C ${fileDirname}",
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "gcc build active file",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}.out"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "clean everything",
+            "command": "make -C ${fileDirname} clean"
+        }
+    ]
+}
