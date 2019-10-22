@@ -1,4 +1,4 @@
-CFLAGS := -g
+CFLAGS := -std=c99 -g
 
 TARGETS := $(patsubst %.c, %, $(wildcard *.c))
 

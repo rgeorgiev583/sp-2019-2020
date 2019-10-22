@@ -21,6 +21,7 @@
             "label": "gcc build active file",
             "command": "/usr/bin/gcc",
             "args": [
+                "-std=c99",
                 "-g",
                 "${file}",
                 "-o",
