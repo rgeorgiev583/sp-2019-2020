@@ -4,7 +4,7 @@
         {
             "type": "shell",
             "label": "make active file",
-            "command": "make -C ${fileDirname} ${fileBasenameNoExtension}.out",
+            "command": "make -C ${fileDirname} ${fileBasenameNoExtension}",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -24,7 +24,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}.out"
+                "${fileDirname}/${fileBasenameNoExtension}"
             ],
             "options": {
                 "cwd": "/usr/bin"
