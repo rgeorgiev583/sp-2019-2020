@@ -4,10 +4,10 @@
 static void cat(FILE *input_file)
 {
     char buffer;
-    while (!feof(stdin))
+    while (!feof(input_file))
     {
         size_t read_count = fread(&buffer, sizeof(char), 1, input_file);
-        if (ferror(stdin))
+        if (ferror(input_file))
         {
             perror("fread");
             exit(EXIT_FAILURE);
