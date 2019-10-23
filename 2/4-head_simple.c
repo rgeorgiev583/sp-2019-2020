@@ -1,5 +1,3 @@
-// XXX: просто, но неефикасно решение
-
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -16,28 +14,27 @@ int main(int argc, const char *const *argv)
     if (target_count < 0)
         exit(EXIT_FAILURE);
 
-    FILE *input_file = fopen(argv[2], O_RDONLY);
-    if (NULL == input_file)
+    int input_fileno = open(argv[2], O_RDONLY);
+    if (-1 == input_fileno)
     {
-        perror("fopen");
+        perror("open");
         exit(EXIT_FAILURE);
     }
 
     char buffer;
     long total_count = 0;
-    while (total_count < target_count && !feof(input_file))
+    ssize_t read_count;
+    while (total_count < target_count && (read_count = read(input_fileno, &buffer, 1)) != 0)
     {
-        size_t read_count = fread(&buffer, sizeof(char), 1, input_file);
-        if (ferror(stdin))
+        if (-1 == read_count)
         {
-            perror("fread");
+            perror("read");
             exit(EXIT_FAILURE);
         }
 
-        fwrite(&buffer, sizeof(char), read_count, stdout);
-        if (ferror(stdout))
+        if (-1 == write(STDOUT_FILENO, &buffer, read_count))
         {
-            perror("fwrite");
+            perror("write");
             exit(EXIT_FAILURE);
         }
 
