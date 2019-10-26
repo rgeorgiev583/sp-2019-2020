@@ -1,3 +1,5 @@
+// XXX: просто, но неефикасно решение
+
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
