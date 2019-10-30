@@ -5,9 +5,11 @@
 3-cat-append
 3-cat-append_stdio
 4-head
+4-head_simple_alt
 4-head_simple
 4-head_stdio
 5-tail
+5-tail_simple_alt
 5-tail_simple
 5-tail_stdio
 6-cat-with-args
