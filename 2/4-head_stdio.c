@@ -37,7 +37,7 @@ int main(int argc, const char *const *argv)
             exit(EXIT_FAILURE);
         }
 
-        total_count += read_count;
+        total_count++;
     }
 
     return 0;

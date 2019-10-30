@@ -24,8 +24,8 @@ int main(int argc, const char *const *argv)
     }
 
     char buffer;
-    long total_count = 0;
     ssize_t read_count;
+    long total_count = 0;
     while (total_count < target_count && (read_count = read(input_fileno, &buffer, 1)) != 0)
     {
         if (-1 == read_count)
@@ -40,7 +40,7 @@ int main(int argc, const char *const *argv)
             exit(EXIT_FAILURE);
         }
 
-        total_count += read_count;
+        total_count++;
     }
 
     return 0;
