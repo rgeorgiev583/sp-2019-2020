@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static ssize_t total_char_count = 0, total_line_count = 0;
+static ssize_t total_byte_count = 0, total_line_count = 0;
 
 static void wc(int input_fileno, const char *filename)
 {
@@ -28,7 +28,7 @@ static void wc(int input_fileno, const char *filename)
     else
         printf(" %ld %ld %s\n", line_count, byte_count, filename);
 
-    total_char_count += byte_count;
+    total_byte_count += byte_count;
     total_line_count += line_count;
 }
 
@@ -57,7 +57,7 @@ int main(int argc, const char *const *argv)
     else
         wc(STDIN_FILENO, NULL);
 
-    printf(" %ld %ld total\n", total_line_count, total_char_count);
+    printf(" %ld %ld total\n", total_line_count, total_byte_count);
 
     return 0;
 }

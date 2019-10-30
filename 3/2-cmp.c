@@ -26,7 +26,7 @@ int main(int argc, const char *const *argv)
 
     char buffer1[BUFSIZ], buffer2[BUFSIZ];
     ssize_t read_count1 = 0, read_count2;
-    unsigned current_buffer_position = 0, current_char_position = 0, current_line_position = 1;
+    unsigned current_buffer_position = 0, current_byte_position = 0, current_line_position = 1;
     do
     {
         if (current_buffer_position == read_count1)
@@ -52,13 +52,13 @@ int main(int argc, const char *const *argv)
         }
 
         current_buffer_position++;
-        current_char_position++;
+        current_byte_position++;
         if ('\n' == buffer1[current_buffer_position] && '\n' == buffer2[current_buffer_position])
             current_line_position++;
     } while (buffer1[current_buffer_position] == buffer2[current_buffer_position]);
 
     if (current_buffer_position != 0 || read_count1 != read_count2)
-        printf("%s %s differ: byte %ld, line %ld\n", argv[1], argv[2], current_char_position, current_line_position);
+        printf("%s %s differ: byte %ld, line %ld\n", argv[1], argv[2], current_byte_position, current_line_position);
 
     return 0;
 }
