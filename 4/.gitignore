@@ -1,0 +1,6 @@
+1-replace-word
+2-replace-char
+3-append-lseek
+4-cp-holes
+5-atomic-append
+generate-holey-file
