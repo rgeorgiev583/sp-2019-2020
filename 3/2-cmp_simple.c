@@ -25,7 +25,7 @@ int main(int argc, const char *const *argv)
     }
 
     char buffer1, buffer2;
-    unsigned current_byte_position = 0, current_line_position = 1;
+    unsigned long current_byte_position = 0, current_line_position = 1;
     ssize_t read_count1, read_count2;
     do
     {

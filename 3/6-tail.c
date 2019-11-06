@@ -12,7 +12,7 @@ static void tail(int input_fileno)
     char buffer[BUFSIZ];
     ssize_t read_count;
     long current_line_count = 0;
-    unsigned current_buffer_pos;
+    unsigned long current_buffer_pos;
     while ((read_count = read(input_fileno, buffer, BUFSIZ)) != 0)
     {
         if (-1 == read_count)

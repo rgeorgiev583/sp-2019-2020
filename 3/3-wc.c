@@ -9,7 +9,7 @@ static void wc(int input_fileno, const char *filename)
 {
     char buffer[BUFSIZ];
     ssize_t read_count;
-    unsigned byte_count = 0, line_count = 0;
+    unsigned long byte_count = 0, line_count = 0;
     while ((read_count = read(input_fileno, &buffer, BUFSIZ)) != 0)
     {
         if (-1 == read_count)

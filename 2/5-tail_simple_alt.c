@@ -24,7 +24,7 @@ int main(int argc, const char *const *argv)
     char buffer[BUFSIZ];
     ssize_t read_count;
     long total_count = 0;
-    unsigned current_buffer_pos;
+    unsigned long current_buffer_pos;
 
     while ((read_count = read(input_fileno, buffer, BUFSIZ)) != 0)
     {

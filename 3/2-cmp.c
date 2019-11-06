@@ -26,7 +26,7 @@ int main(int argc, const char *const *argv)
 
     char buffer1[BUFSIZ], buffer2[BUFSIZ];
     ssize_t read_count1 = 0, read_count2;
-    unsigned current_buffer_position = 0, current_byte_position = 0, current_line_position = 1;
+    unsigned long current_buffer_position = 0, current_byte_position = 0, current_line_position = 1;
     do
     {
         if (current_buffer_position == read_count1)
