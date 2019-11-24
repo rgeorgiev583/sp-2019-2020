@@ -42,9 +42,9 @@ int main(int argc, const char *const *argv)
 
             total_count++;
             if (total_count == target_count)
-                return 0;
+                return EXIT_SUCCESS;
         }
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

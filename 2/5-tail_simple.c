@@ -53,5 +53,5 @@ int main(int argc, const char *const *argv)
         }
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

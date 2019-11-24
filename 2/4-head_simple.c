@@ -43,5 +43,5 @@ int main(int argc, const char *const *argv)
         total_count++;
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

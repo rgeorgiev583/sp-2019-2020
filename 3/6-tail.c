@@ -84,5 +84,5 @@ int main(int argc, const char *const *argv)
     else
         tail(STDIN_FILENO);
 
-    return 0;
+    return EXIT_SUCCESS;
 }

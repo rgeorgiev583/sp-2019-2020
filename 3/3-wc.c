@@ -62,5 +62,5 @@ int main(int argc, const char *const *argv)
 
     printf(" %ld %ld total\n", total_line_count, total_byte_count);
 
-    return 0;
+    return EXIT_SUCCESS;
 }

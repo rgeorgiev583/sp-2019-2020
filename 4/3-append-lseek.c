@@ -32,5 +32,5 @@ int main(int argc, const char *const *argv)
         exit(EXIT_FAILURE);
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

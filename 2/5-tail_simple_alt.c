@@ -67,5 +67,5 @@ read_write_section:
         }
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

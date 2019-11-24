@@ -11,5 +11,5 @@ int main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

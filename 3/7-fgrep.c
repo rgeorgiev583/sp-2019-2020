@@ -80,5 +80,5 @@ int main(int argc, const char *const *argv)
     else
         fgrep(STDIN_FILENO);
 
-    return 0;
+    return EXIT_SUCCESS;
 }

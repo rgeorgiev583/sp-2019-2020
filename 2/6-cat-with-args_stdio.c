@@ -47,5 +47,5 @@ int main(int argc, char const *const *argv)
     else
         cat(stdin);
 
-    return 0;
+    return EXIT_SUCCESS;
 }

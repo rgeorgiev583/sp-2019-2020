@@ -51,6 +51,6 @@
             lseek(fd2, 0, SEEK_SET);
             write(fd1, "HELLO,", 6);
             write(fd3, "Gidday", 6);
-            return 0;
+            return EXIT_SUCCESS;
         }
 

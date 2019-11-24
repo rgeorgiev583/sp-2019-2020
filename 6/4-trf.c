@@ -48,5 +48,5 @@ int main(int argc, char *const *argv)
         exit(EXIT_FAILURE);
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
