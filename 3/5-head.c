@@ -25,7 +25,11 @@ static void head(int input_fileno)
             if ('\n' == buffer[i])
                 current_line_count++;
 
-            write(STDOUT_FILENO, &buffer, 1);
+            if (-1 == write(STDOUT_FILENO, &buffer, 1))
+            {
+                perror("write");
+                exit(EXIT_FAILURE);
+            }
 
             if (current_line_count == total_line_count)
                 return;
