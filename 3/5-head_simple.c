@@ -23,7 +23,11 @@ static void head(int input_fileno)
         if ('\n' == buffer)
             current_line_count++;
 
-        write(STDOUT_FILENO, &buffer, 1);
+        if (-1 == write(STDOUT_FILENO, &buffer, 1))
+        {
+            perror("write");
+            exit(EXIT_FAILURE);
+        }
     }
 }
 

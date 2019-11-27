@@ -24,14 +24,24 @@ static void cut(int input_fileno)
         {
             current_position_in_line = 0;
 
-            write(STDOUT_FILENO, &buffer, 1);
+            if (-1 == write(STDOUT_FILENO, &buffer, 1))
+            {
+                perror("write");
+                exit(EXIT_FAILURE);
+            }
         }
         else
         {
             current_position_in_line++;
 
             if (current_position_in_line >= from_position_in_line && current_position_in_line <= to_position_in_line)
-                write(STDOUT_FILENO, &buffer, 1);
+            {
+                if (-1 == write(STDOUT_FILENO, &buffer, 1))
+                {
+                    perror("write");
+                    exit(EXIT_FAILURE);
+                }
+            }
         }
     }
 }
