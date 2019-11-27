@@ -37,7 +37,7 @@ int main(int argc, const char *const *argv)
         exit(EXIT_FAILURE);
 
     int exit_status = fork_exec(argv[1]);
-    if (0 != exit_status)
+    if (EXIT_SUCCESS != exit_status)
         return exit_status;
 
     exit_status = fork_exec(argv[2]);
