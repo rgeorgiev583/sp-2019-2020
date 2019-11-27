@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static ssize_t total_byte_count = 0, total_line_count = 0;
+static unsigned long total_byte_count = 0, total_line_count = 0;
 
 static void wc(int input_fileno, const char *filename)
 {
