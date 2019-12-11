@@ -1,5 +1,4 @@
 #include <unistd.h>
-#include <sys/types.h>
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -7,15 +6,16 @@
 #include <stdbool.h>
 
 #define MAX_ARG_COUNT 100
+#define PROMPT_STRING "$ "
 
 int main(int argc, const char *const *argv)
 {
     while (true)
     {
-        write(1, "$ ", 2);
+        write(STDOUT_FILENO, PROMPT_STRING, sizeof(PROMPT_STRING));
 
         char command_buffer[BUFSIZ];
-        ssize_t command_length = read(0, command_buffer, BUFSIZ);
+        ssize_t command_length = read(STDIN_FILENO, command_buffer, BUFSIZ);
         if (-1 == command_length)
         {
             perror("read");
@@ -54,7 +54,7 @@ int main(int argc, const char *const *argv)
         int status;
         wait(&status);
         int exit_status = WEXITSTATUS(status);
-        if (exit_status != 0)
+        if (exit_status != EXIT_SUCCESS)
             fprintf(stderr, "%s: warning: command `%s` (PID %d) exited with a non-zero status code (%d)\n", argv[0], command_argv[0], pid, exit_status);
     }
 

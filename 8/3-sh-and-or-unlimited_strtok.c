@@ -7,6 +7,13 @@
 #include <stdbool.h>
 
 #define MAX_ARG_COUNT 100
+#define PROMPT_STRING "$ "
+
+typedef enum operator_type_t {
+    OPERATOR_NONE,
+    OPERATOR_AND,
+    OPERATOR_OR,
+} operator_type_t;
 
 static const char *argv0;
 
@@ -30,7 +37,7 @@ static int fork_exec(char *const *command_argv)
     int status;
     wait(&status);
     int exit_status = WEXITSTATUS(status);
-    if (exit_status != 0)
+    if (exit_status != EXIT_SUCCESS)
         fprintf(stderr, "%s: warning: command `%s` (PID %d) exited with a non-zero status code (%d)\n", argv0, command_argv[0], pid, exit_status);
 
     return WEXITSTATUS(status);
@@ -42,10 +49,10 @@ int main(int argc, const char *const *argv)
 
     while (true)
     {
-        write(1, "$ ", 2);
+        write(STDOUT_FILENO, PROMPT_STRING, sizeof(PROMPT_STRING));
 
         char command_buffer[BUFSIZ];
-        ssize_t command_length = read(0, command_buffer, BUFSIZ);
+        ssize_t command_length = read(STDIN_FILENO, command_buffer, BUFSIZ);
         if (-1 == command_length)
         {
             perror("read");
@@ -67,31 +74,31 @@ int main(int argc, const char *const *argv)
             exit(EXIT_SUCCESS);
 
         int operator_count = 0, operator_types[MAX_ARG_COUNT], subcommand_argv_positions[MAX_ARG_COUNT];
-        operator_types[operator_count] = 0;
+        operator_types[operator_count] = OPERATOR_NONE;
         subcommand_argv_positions[0] = 0;
         for (int i = 0; i < command_argc; i++)
         {
             if (0 == strcmp(command_argv[i], "&&"))
             {
                 operator_count++;
-                operator_types[operator_count] = 1;
+                operator_types[operator_count] = OPERATOR_AND;
                 subcommand_argv_positions[operator_count] = i + 1;
                 command_argv[i] = NULL;
             }
             else if (0 == strcmp(command_argv[i], "||"))
             {
                 operator_count++;
-                operator_types[operator_count] = 2;
+                operator_types[operator_count] = OPERATOR_OR;
                 subcommand_argv_positions[operator_count] = i + 1;
                 command_argv[i] = NULL;
             }
         }
         operator_count++;
 
-        int exit_status = 0;
+        int exit_status = EXIT_SUCCESS;
         for (int i = 0; i < operator_count; i++)
         {
-            if ((1 == operator_types[i] && 0 != exit_status) || (2 == operator_types[i] && 0 == exit_status))
+            if ((1 == operator_types[i] && EXIT_SUCCESS != exit_status) || (2 == operator_types[i] && EXIT_SUCCESS == exit_status))
                 break;
 
             int subcommand_argv_position = subcommand_argv_positions[i];
