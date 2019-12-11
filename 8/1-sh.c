@@ -58,5 +58,5 @@ int main(int argc, const char *const *argv)
             fprintf(stderr, "%s: warning: command `%s` (PID %d) exited with a non-zero status code (%d)\n", argv[0], command_argv[0], pid, exit_status);
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

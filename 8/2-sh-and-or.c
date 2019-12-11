@@ -90,5 +90,5 @@ int main(int argc, const char *const *argv)
         fork_exec(command_argv + next_subcommand_argv_position);
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
