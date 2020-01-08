@@ -45,7 +45,7 @@
 
 Създаване на блок от споделена памет с размер `size` чрез системното извикване `mmap()` се извършва по следния начин :
 
-`void* shared_memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);` 
+        void* shared_memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 
 ## Задачи
 
