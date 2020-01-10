@@ -5,6 +5,10 @@
             "type": "shell",
             "label": "make active file",
             "command": "make -C ${fileDirname} ${fileBasenameNoExtension}",
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": ["autoDetect", "${fileDirname}"],
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -14,6 +18,10 @@
             "type": "shell",
             "label": "make everything",
             "command": "make -C ${fileDirname}",
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": ["autoDetect", "${fileDirname}"],
+            },
             "group": "build"
         },
         {
@@ -30,9 +38,10 @@
             "options": {
                 "cwd": "/usr/bin"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": ["autoDetect", "${fileDirname}"],
+            },
             "group": "build"
         },
         {
