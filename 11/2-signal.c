@@ -6,7 +6,8 @@ int main(void)
 {
     signal(SIGINT, SIG_IGN);
 
-    while (true);
+    while (true)
+        ;
 
     return EXIT_SUCCESS;
 }

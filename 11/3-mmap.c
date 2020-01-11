@@ -10,7 +10,7 @@
 
 int main(void)
 {
-    char* message = mmap(NULL, MESSAGE_LENGTH, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    char *message = mmap(NULL, MESSAGE_LENGTH, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 
     switch (fork())
     {
