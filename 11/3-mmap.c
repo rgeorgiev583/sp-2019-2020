@@ -1,9 +1,9 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/mman.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 
 #define MESSAGE "Hello world"
 #define MESSAGE_LENGTH sizeof(MESSAGE)
