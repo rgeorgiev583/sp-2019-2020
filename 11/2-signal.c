@@ -4,7 +4,11 @@
 
 int main(void)
 {
-    signal(SIGINT, SIG_IGN);
+    if (SIG_ERR == signal(SIGINT, SIG_IGN))
+    {
+        perror("signal");
+        exit(EXIT_FAILURE);
+    }
 
     while (true)
         ;

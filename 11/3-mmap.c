@@ -11,6 +11,11 @@
 int main(void)
 {
     char *message = mmap(NULL, MESSAGE_LENGTH, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    if (MAP_FAILED == message)
+    {
+        perror("mmap");
+        exit(EXIT_FAILURE);
+    }
 
     switch (fork())
     {
@@ -23,8 +28,17 @@ int main(void)
         exit(EXIT_SUCCESS);
 
     default:
-        wait(NULL);
-        write(STDOUT_FILENO, message, MESSAGE_LENGTH);
+        if (-1 == wait(NULL))
+        {
+            perror("wait");
+            exit(EXIT_FAILURE);
+        }
+
+        if (-1 == write(STDOUT_FILENO, message, MESSAGE_LENGTH))
+        {
+            perror("write");
+            exit(EXIT_FAILURE);
+        }
     }
 
     return EXIT_SUCCESS;
