@@ -32,7 +32,11 @@ static int fork_exec(char *const *command_argv, const char *output_filename, con
                 exit(EXIT_FAILURE);
             }
 
-            dup2(output_fileno, STDOUT_FILENO);
+            if (-1 == dup2(output_fileno, STDOUT_FILENO))
+            {
+                perror("dup2");
+                exit(EXIT_FAILURE);
+            }
         }
 
         if (NULL != append_filename)
@@ -44,7 +48,11 @@ static int fork_exec(char *const *command_argv, const char *output_filename, con
                 exit(EXIT_FAILURE);
             }
 
-            dup2(append_fileno, STDOUT_FILENO);
+            if (-1 == dup2(append_fileno, STDOUT_FILENO))
+            {
+                perror("dup2");
+                exit(EXIT_FAILURE);
+            }
         }
 
         if (NULL != input_filename)
@@ -56,7 +64,11 @@ static int fork_exec(char *const *command_argv, const char *output_filename, con
                 exit(EXIT_FAILURE);
             }
 
-            dup2(input_fileno, STDIN_FILENO);
+            if (-1 == dup2(input_fileno, STDIN_FILENO))
+            {
+                perror("dup2");
+                exit(EXIT_FAILURE);
+            }
         }
 
         if (-1 == execvp(command_argv[0], command_argv))
@@ -67,7 +79,12 @@ static int fork_exec(char *const *command_argv, const char *output_filename, con
     }
 
     int status;
-    wait(&status);
+    if (-1 == wait(&status))
+    {
+        perror("wait");
+        exit(EXIT_FAILURE);
+    }
+
     int exit_status = WEXITSTATUS(status);
     if (exit_status != 0)
         fprintf(stderr, "%s: warning: command `%s` (PID %d) exited with a non-zero status code (%d)\n", argv0, command_argv[0], pid, exit_status);

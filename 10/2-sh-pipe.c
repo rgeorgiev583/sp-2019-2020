@@ -27,7 +27,12 @@ static int fork_exec(char *const *command_argv)
     }
 
     int status;
-    wait(&status);
+    if (-1 == wait(&status))
+    {
+        perror("wait");
+        exit(EXIT_FAILURE);
+    }
+
     int exit_status = WEXITSTATUS(status);
     if (exit_status != 0)
         fprintf(stderr, "%s: warning: command `%s` (PID %d) exited with a non-zero status code (%d)\n", argv0, command_argv[0], pid, exit_status);
@@ -52,8 +57,17 @@ static int fork_exec_pipe(char *const *input_command_argv, char *const *output_c
         exit(EXIT_FAILURE);
 
     case 0:
-        close(pipe_fileno[0]);
-        dup2(pipe_fileno[1], STDOUT_FILENO);
+        if (-1 == close(pipe_fileno[0]))
+        {
+            perror("close");
+            exit(EXIT_FAILURE);
+        }
+
+        if (-1 == dup2(pipe_fileno[1], STDOUT_FILENO))
+        {
+            perror("dup2");
+            exit(EXIT_FAILURE);
+        }
 
         if (-1 == execvp(input_command_argv[0], input_command_argv))
         {
@@ -70,8 +84,17 @@ static int fork_exec_pipe(char *const *input_command_argv, char *const *output_c
         exit(EXIT_FAILURE);
 
     case 0:
-        dup2(pipe_fileno[0], STDIN_FILENO);
-        close(pipe_fileno[1]);
+        if (-1 == dup2(pipe_fileno[0], STDIN_FILENO))
+        {
+            perror("dup2");
+            exit(EXIT_FAILURE);
+        }
+
+        if (-1 == close(pipe_fileno[1]))
+        {
+            perror("close");
+            exit(EXIT_FAILURE);
+        }
 
         if (-1 == execvp(output_command_argv[0], output_command_argv))
         {
@@ -80,13 +103,31 @@ static int fork_exec_pipe(char *const *input_command_argv, char *const *output_c
         }
     }
 
-    close(pipe_fileno[0]);
-    close(pipe_fileno[1]);
+    if (-1 == close(pipe_fileno[0]))
+    {
+        perror("close");
+        exit(EXIT_FAILURE);
+    }
 
-    waitpid(input_command_pid, NULL, 0);
+    if (-1 == close(pipe_fileno[1]))
+    {
+        perror("close");
+        exit(EXIT_FAILURE);
+    }
+
+    if (-1 == waitpid(input_command_pid, NULL, 0))
+    {
+        perror("waitpid");
+        exit(EXIT_FAILURE);
+    }
 
     int status;
-    waitpid(output_command_pid, &status, 0);
+    if (-1 == waitpid(output_command_pid, &status, 0))
+    {
+        perror("waitpid");
+        exit(EXIT_FAILURE);
+    }
+
     int exit_status = WEXITSTATUS(status);
     if (exit_status != 0)
         fprintf(stderr, "%s: warning: command `%s` (PID %d) exited with a non-zero status code (%d)\n", argv0, output_command_argv[0], output_command_pid, exit_status);

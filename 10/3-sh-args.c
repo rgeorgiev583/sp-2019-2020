@@ -27,7 +27,12 @@ static int fork_exec(char *const *command_argv)
     }
 
     int status;
-    wait(&status);
+    if (-1 == wait(&status))
+    {
+        perror("wait");
+        exit(EXIT_FAILURE);
+    }
+
     int exit_status = WEXITSTATUS(status);
     if (exit_status != 0)
         fprintf(stderr, "%s: warning: command `%s` (PID %d) exited with a non-zero status code (%d)\n", argv0, command_argv[0], pid, exit_status);
