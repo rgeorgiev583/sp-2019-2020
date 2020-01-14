@@ -1,12 +1,17 @@
 1-cp
+1-cp_stdio
 2-cmp
 2-cmp_simple
+2-cmp_stdio
 3-wc
 3-wc_simple
+3-wc_stdio
 4-cut
 4-cut_simple
+4-cut_stdio
 5-head
 5-head_simple
+5-head_stdio
 6-tail
 6-tail_simple
 7-fgrep
