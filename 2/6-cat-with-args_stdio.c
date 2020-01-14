@@ -4,16 +4,15 @@
 static void cat(FILE *input_file)
 {
     char buffer;
-    while (!feof(input_file))
+    while (fread(&buffer, sizeof(char), 1, input_file), !feof(input_file))
     {
-        size_t read_count = fread(&buffer, sizeof(char), 1, input_file);
         if (ferror(input_file))
         {
             perror("fread");
             exit(EXIT_FAILURE);
         }
 
-        fwrite(&buffer, sizeof(char), read_count, stdout);
+        fwrite(&buffer, sizeof(char), 1, stdout);
         if (ferror(stdout))
         {
             perror("fwrite");
