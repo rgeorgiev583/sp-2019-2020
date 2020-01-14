@@ -9,7 +9,8 @@
 #define MAX_ARG_COUNT 100
 #define PROMPT_STRING "$ "
 
-typedef enum operator_type_t {
+typedef enum operator_type_t
+{
     OPERATOR_NONE,
     OPERATOR_AND,
     OPERATOR_OR,
