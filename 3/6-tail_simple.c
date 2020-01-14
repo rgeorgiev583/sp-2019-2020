@@ -32,7 +32,11 @@ static void tail(int input_fileno)
             exit(EXIT_FAILURE);
         }
 
-        write(STDOUT_FILENO, &buffer, 1);
+        if (-1 == write(STDOUT_FILENO, &buffer, 1))
+        {
+            perror("write");
+            exit(EXIT_FAILURE);
+        }
     }
 }
 
