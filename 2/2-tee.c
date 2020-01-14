@@ -16,7 +16,7 @@ int main(int argc, const char *const *argv)
     int output_fileno = creat(argv[1], DEFAULT_FILE_MODE);
     if (-1 == output_fileno)
     {
-        perror("open");
+        perror("creat");
         exit(EXIT_FAILURE);
     }
 
