@@ -22,7 +22,12 @@ static void head(FILE *input_file)
         if ('\n' == buffer)
             current_line_count++;
 
-        write(STDOUT_FILENO, &buffer, 1);
+        fwrite(&buffer, sizeof(char), 1, stdout);
+        if (ferror(stdout))
+        {
+            perror("fwrite");
+            exit(EXIT_FAILURE);
+        }
     }
 }
 
@@ -39,24 +44,24 @@ int main(int argc, const char *const *argv)
     {
         for (int i = REQUIRED_ARG_COUNT + 1; i < argc; i++)
         {
-            int input_file = open(argv[i], O_RDONLY);
-            if (-1 == input_file)
+            FILE *input_file = fopen(argv[i], "r");
+            if (NULL == input_file)
             {
-                perror("open");
+                perror("fopen");
                 exit(EXIT_FAILURE);
             }
 
             head(input_file);
 
-            if (-1 == close(input_file))
+            if (EOF == fclose(input_file))
             {
-                perror("close");
+                perror("fclose");
                 exit(EXIT_FAILURE);
             }
         }
     }
     else
-        head(STDIN_FILENO);
+        head(stdin);
 
     return EXIT_SUCCESS;
 }
