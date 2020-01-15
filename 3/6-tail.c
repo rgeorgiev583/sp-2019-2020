@@ -5,7 +5,7 @@
 
 #define REQUIRED_ARG_COUNT 1
 
-static ssize_t total_line_count;
+static long total_line_count;
 
 static void tail(int input_fileno)
 {
@@ -48,7 +48,11 @@ read_write_section:
             exit(EXIT_FAILURE);
         }
 
-        write(STDOUT_FILENO, buffer, read_count);
+        if (-1 == write(STDOUT_FILENO, buffer, read_count))
+        {
+            perror("write");
+            exit(EXIT_FAILURE);
+        }
     }
 }
 

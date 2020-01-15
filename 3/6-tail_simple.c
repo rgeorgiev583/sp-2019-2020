@@ -5,7 +5,7 @@
 
 #define REQUIRED_ARG_COUNT 1
 
-static ssize_t total_line_count;
+static long total_line_count;
 
 static void tail(int input_fileno)
 {
