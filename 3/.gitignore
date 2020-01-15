@@ -14,4 +14,6 @@
 5-head_stdio
 6-tail
 6-tail_simple
+6-tail_stdio
 7-fgrep
+7-fgrep_stdio
