@@ -37,8 +37,17 @@ static void fgrep(int input_fileno)
 
             if (pattern_length == j)
             {
-                write(STDOUT_FILENO, buffer, current_line_length);
-                write(STDOUT_FILENO, "\n", 1);
+                if (-1 == write(STDOUT_FILENO, buffer, current_line_length))
+                {
+                    perror("write");
+                    exit(EXIT_FAILURE);
+                }
+
+                if (-1 == write(STDOUT_FILENO, "\n", 1))
+                {
+                    perror("write");
+                    exit(EXIT_FAILURE);
+                }
 
                 break;
             }
